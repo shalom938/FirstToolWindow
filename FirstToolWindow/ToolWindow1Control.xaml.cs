@@ -30,5 +30,11 @@ namespace FirstToolWindow
                 string.Format(System.Globalization.CultureInfo.CurrentUICulture, "Invoked '{0}'", this.ToString()),
                 "ToolWindow1");
         }
+
+
+        public System.Windows.Controls.MediaElement MediaPlayer
+        {
+            get { return mediaElement1; }
+        }
     }
 }

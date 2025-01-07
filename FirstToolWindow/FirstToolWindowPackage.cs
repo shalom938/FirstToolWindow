@@ -26,7 +26,7 @@ namespace FirstToolWindow
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Guid(FirstToolWindowPackage.PackageGuidString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [ProvideToolWindow(typeof(ToolWindow1))]
+    [ProvideToolWindow(typeof(ToolWindow1), Style = Microsoft.VisualStudio.Shell.VsDockStyle.Tabbed,Window = "3ae79031-e1bc-11d0-8f78-00a0c9110057")]
     public sealed class FirstToolWindowPackage : AsyncPackage
     {
         /// <summary>

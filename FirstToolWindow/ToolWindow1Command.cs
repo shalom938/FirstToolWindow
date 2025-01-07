@@ -6,6 +6,8 @@ using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
+using System.Windows.Forms;
+using Microsoft.VisualStudio.OLE.Interop;
 
 namespace FirstToolWindow
 {
@@ -28,6 +30,14 @@ namespace FirstToolWindow
         /// VS Package that provides this command, not null.
         /// </summary>
         private readonly AsyncPackage package;
+
+
+        public const string guidFirstToolWindowPackageCmdSet = "1d2c9cfa-0f4d-4770-820f-67d0dfe6b00f";  // get the GUID from the .vsct file
+        public const uint cmdidWindowsMedia = 0x100;
+        public const int cmdidWindowsMediaOpen = 0x132;
+        public const int ToolbarID = 0x1000;
+
+        private ToolWindow1 window;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ToolWindow1Command"/> class.
@@ -91,7 +101,7 @@ namespace FirstToolWindow
             // Get the instance number 0 of this tool window. This window is single instance so this instance
             // is actually the only one.
             // The last flag is set to true so that if the tool window does not exists it will be created.
-            ToolWindowPane window = this.package.FindToolWindow(typeof(ToolWindow1), 0, true);
+            window = (ToolWindow1)this.package.FindToolWindow(typeof(ToolWindow1), 0, true);
             if ((null == window) || (null == window.Frame))
             {
                 throw new NotSupportedException("Cannot create tool window");
@@ -99,6 +109,26 @@ namespace FirstToolWindow
 
             IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
             Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+
+            // Create the handles for the toolbar command.
+            var mcsTask = this.ServiceProvider.GetServiceAsync(typeof(IMenuCommandService));
+            var mcs = mcsTask.Result as MenuCommandService;
+            var toolbarbtnCmdID = new CommandID(new Guid(ToolWindow1Command.guidFirstToolWindowPackageCmdSet),
+                ToolWindow1Command.cmdidWindowsMediaOpen);
+            var menuItem = new MenuCommand(new EventHandler(
+                ButtonHandler), toolbarbtnCmdID);
+            mcs.AddCommand(menuItem);
+        }
+
+
+        private void ButtonHandler(object sender, EventArgs arguments)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            DialogResult result = openFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                window.control.MediaPlayer.Source = new System.Uri(openFileDialog.FileName);
+            }
         }
     }
 }

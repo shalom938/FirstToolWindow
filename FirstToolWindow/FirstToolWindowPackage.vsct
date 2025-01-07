@@ -31,6 +31,25 @@
     group; your package should define its own command set in order to avoid collisions
     with command ids defined by other packages. -->
 
+
+	  <Menus>
+		  <Menu guid="guidFirstToolWindowPackageCmdSet" id="ToolbarID" priority="0x0000" type="ToolWindowToolbar">
+			  <Parent guid="guidFirstToolWindowPackageCmdSet" id="ToolbarID" />
+			  <Strings>
+				  <ButtonText>My Tool Window Toolbar</ButtonText>
+				  <CommandName>My Tool Window Toolbar</CommandName>
+			  </Strings>
+		  </Menu>
+	  </Menus>
+
+
+	  <Groups>
+		  <Group guid="guidFirstToolWindowPackageCmdSet" id="ToolbarGroupID" priority="0x0000">
+			  <Parent guid="guidFirstToolWindowPackageCmdSet" id="ToolbarID" />
+		  </Group>
+	  </Groups>
+	  
+	  
     <!--Buttons section. -->
     <!--This section defines the elements the user can interact with, like a menu command or a button
         or combo box in a toolbar. -->
@@ -49,6 +68,15 @@
           <ButtonText>ToolWindow1</ButtonText>
         </Strings>
       </Button>
+
+		<Button guid="guidFirstToolWindowPackageCmdSet" id="cmdidWindowsMediaOpen" priority="0x0101" type="Button">
+			<Parent guid="guidFirstToolWindowPackageCmdSet" id="ToolbarGroupID"/>
+			<Icon guid="guidImages" id="bmpPicSearch" />
+			<Strings>
+				<CommandName>cmdidWindowsMediaOpen</CommandName>
+				<ButtonText>Load File</ButtonText>
+			</Strings>
+		</Button>
     </Buttons>
 
     <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
@@ -69,6 +97,10 @@
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidFirstToolWindowPackageCmdSet" value="{1d2c9cfa-0f4d-4770-820f-67d0dfe6b00f}">
       <IDSymbol name="ToolWindow1CommandId" value="0x0100" />
+		<IDSymbol name="ToolbarID" value="0x1000" />
+		<IDSymbol name="ToolbarGroupID" value="0x1001" />
+		<IDSymbol name="cmdidWindowsMedia" value="0x0100" />
+		<IDSymbol name="cmdidWindowsMediaOpen" value="0x132" />
     </GuidSymbol>
 
     <GuidSymbol name="guidImages" value="{0a298fc7-7669-4818-b3af-9e4d38e344a3}" >
