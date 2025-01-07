@@ -65,7 +65,7 @@
         <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1"/>
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
-          <ButtonText>ToolWindow1</ButtonText>
+          <ButtonText>My First Tool Window</ButtonText>
         </Strings>
       </Button>
 
