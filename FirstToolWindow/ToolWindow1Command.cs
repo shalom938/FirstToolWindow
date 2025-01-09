@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.OLE.Interop;
+using Community.VisualStudio.Toolkit;
 
 namespace FirstToolWindow
 {
@@ -129,6 +130,9 @@ namespace FirstToolWindow
             {
                 window.control.MediaPlayer.Source = new System.Uri(openFileDialog.FileName);
             }
+
+            // or from a synchronous method:
+            VS.StatusBar.ShowMessageAsync("My first notification text").FireAndForget();
         }
     }
 }
