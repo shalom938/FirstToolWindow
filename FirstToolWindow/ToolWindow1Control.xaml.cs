@@ -1,6 +1,10 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿//using CefSharp.Wpf;
+using CefSharp;
+using CefSharp.Wpf;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
+//using CefSharp.DevTools.Autofill;
 
 namespace FirstToolWindow
 {
@@ -15,6 +19,28 @@ namespace FirstToolWindow
         public ToolWindow1Control()
         {
             this.InitializeComponent();
+
+            //// Ensure CEF is initialized
+            //var settings = new CefSettings();
+            //if (!Cef.IsInitialized.HasValue || !Cef.IsInitialized.Value)
+            //{
+            //    Cef.Initialize(settings);
+            //}
+
+            //// Set the initial URL
+            //Browser.Address = "https://www.google.com";
+
+            //var browser = new ChromiumWebBrowser();
+            //browser.LoadUrl("https://google.com");
+            //this.Add(browser);
+            //browser.Dock = DockStyle.Fill;
+
+            //ChromiumWebBrowser chromeBrowser = new ChromiumWebBrowser("https://digma.ai/");
+            //// Add it to the form and fill it to the form window.
+            //this.WrapPanel1.Children.Add(chromeBrowser);
+            //chromeBrowser.Dock = DockStyle.Fill;
+
+
         }
 
         /// <summary>
@@ -32,9 +58,14 @@ namespace FirstToolWindow
         }
 
 
-        public System.Windows.Controls.MediaElement MediaPlayer
-        {
-            get { return mediaElement1; }
-        }
+        //public System.Windows.Controls.MediaElement MediaPlayer
+        //{
+        //    get { return mediaElement1; }
+        //}
+
+        //public StackPanel StackPanel1
+        //{
+        //    get { return stackPanel1; }
+        //}
     }
 }

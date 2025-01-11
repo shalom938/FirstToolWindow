@@ -112,27 +112,27 @@ namespace FirstToolWindow
             Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
 
             // Create the handles for the toolbar command.
-            var mcsTask = this.ServiceProvider.GetServiceAsync(typeof(IMenuCommandService));
-            var mcs = mcsTask.Result as MenuCommandService;
-            var toolbarbtnCmdID = new CommandID(new Guid(ToolWindow1Command.guidFirstToolWindowPackageCmdSet),
-                ToolWindow1Command.cmdidWindowsMediaOpen);
-            var menuItem = new MenuCommand(new EventHandler(
-                ButtonHandler), toolbarbtnCmdID);
-            mcs.AddCommand(menuItem);
+            //var mcsTask = this.ServiceProvider.GetServiceAsync(typeof(IMenuCommandService));
+            //var mcs = mcsTask.Result as MenuCommandService;
+            //var toolbarbtnCmdID = new CommandID(new Guid(ToolWindow1Command.guidFirstToolWindowPackageCmdSet),
+            //    ToolWindow1Command.cmdidWindowsMediaOpen);
+            //var menuItem = new MenuCommand(new EventHandler(
+            //    ButtonHandler), toolbarbtnCmdID);
+            //mcs.AddCommand(menuItem);
         }
 
 
-        private void ButtonHandler(object sender, EventArgs arguments)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            DialogResult result = openFileDialog.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                window.control.MediaPlayer.Source = new System.Uri(openFileDialog.FileName);
-            }
+        //private void ButtonHandler(object sender, EventArgs arguments)
+        //{
+        //    OpenFileDialog openFileDialog = new OpenFileDialog();
+        //    DialogResult result = openFileDialog.ShowDialog();
+        //    if (result == DialogResult.OK)
+        //    {
+        //        window.control.MediaPlayer.Source = new System.Uri(openFileDialog.FileName);
+        //    }
 
-            // or from a synchronous method:
-            VS.StatusBar.ShowMessageAsync("My first notification text").FireAndForget();
-        }
+        //    // or from a synchronous method:
+        //    VS.StatusBar.ShowMessageAsync("My first notification text").FireAndForget();
+        //}
     }
 }
