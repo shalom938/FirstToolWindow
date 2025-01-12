@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.ComponentModel.Design;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell.Interop;
+using CefSharp.Wpf;
 
 namespace FirstToolWindow
 {
@@ -38,11 +39,15 @@ namespace FirstToolWindow
             // the object returned by the Content property.
             //this.Content = new ToolWindow1Control();
 
-            control = new ToolWindow1Control();
-            base.Content = control;
-            this.ToolBar = new CommandID(new Guid(ToolWindow1Command.guidFirstToolWindowPackageCmdSet),
-    ToolWindow1Command.ToolbarID);
-            this.ToolBarLocation = (int)VSTWT_LOCATION.VSTWT_TOP;
+    //        control = new ToolWindow1Control();
+    //        base.Content = control;
+    //        this.ToolBar = new CommandID(new Guid(ToolWindow1Command.guidFirstToolWindowPackageCmdSet),
+    //ToolWindow1Command.ToolbarID);
+    //        this.ToolBarLocation = (int)VSTWT_LOCATION.VSTWT_TOP;
+
+
+            ChromiumWebBrowser chromeBrowser = new ChromiumWebBrowser("https://digma.ai/");
+            base.Content = chromeBrowser;
         }
     }
 }
