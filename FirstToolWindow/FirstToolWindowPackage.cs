@@ -1,10 +1,8 @@
-﻿using CefSharp.Wpf;
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Task = System.Threading.Tasks.Task;
-using CefSharp;
 
 namespace FirstToolWindow
 {
@@ -51,13 +49,6 @@ namespace FirstToolWindow
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await ToolWindow1Command.InitializeAsync(this);
-
-            // Initialize CefSharp
-            if (!Cef.IsInitialized.HasValue || !Cef.IsInitialized.Value)
-            {
-                var settings = new CefSettings();
-                Cef.Initialize(settings);
-            }
 
             base.InitializeAsync(cancellationToken, progress);
         }

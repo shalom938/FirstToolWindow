@@ -74,20 +74,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CefSharp.Common">
-      <Version>131.3.50</Version>
-    </PackageReference>
-    <PackageReference Include="CefSharp.Wpf">
-      <Version>131.3.50</Version>
-    </PackageReference>
-    <PackageReference Include="chromiumembeddedframework.runtime.win-x64">
-      <Version>131.3.5</Version>
-    </PackageReference>
     <PackageReference Include="Community.VisualStudio.Toolkit.17">
       <Version>17.0.527</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.0.32112.339" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.12.2069" />
+    <PackageReference Include="Microsoft.Web.WebView2">
+      <Version>1.0.2950-prerelease</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
       <Version>1.1.135</Version>
     </PackageReference>

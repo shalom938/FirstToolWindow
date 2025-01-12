@@ -124,12 +124,12 @@ namespace FirstToolWindow
 
         private void ButtonHandler(object sender, EventArgs arguments)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            DialogResult result = openFileDialog.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                window.control.MediaPlayer.Source = new System.Uri(openFileDialog.FileName);
-            }
+            //OpenFileDialog openFileDialog = new OpenFileDialog();
+            //DialogResult result = openFileDialog.ShowDialog();
+            //if (result == DialogResult.OK)
+            //{
+            //    window.control.MediaPlayer.Source = new System.Uri(openFileDialog.FileName);
+            //}
 
             // or from a synchronous method:
             VS.StatusBar.ShowMessageAsync("My first notification text").FireAndForget();

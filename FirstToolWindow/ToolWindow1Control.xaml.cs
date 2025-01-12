@@ -1,10 +1,10 @@
-﻿//using CefSharp.Wpf;
-using CefSharp;
-using CefSharp.Wpf;
+﻿using Microsoft.VisualStudio.Shell;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
-//using CefSharp.DevTools.Autofill;
+using Microsoft.Web.WebView2.Core;
+using Microsoft.Web.WebView2.Wpf;
 
 namespace FirstToolWindow
 {
@@ -20,27 +20,31 @@ namespace FirstToolWindow
         {
             this.InitializeComponent();
 
-            //// Ensure CEF is initialized
-            //var settings = new CefSettings();
-            //if (!Cef.IsInitialized.HasValue || !Cef.IsInitialized.Value)
-            //{
-            //    Cef.Initialize(settings);
-            //}
-
-            //// Set the initial URL
-            Browser.Address = "https://digma.ai/";
-
-            //var browser = new ChromiumWebBrowser();
-            //browser.LoadUrl("https://google.com");
-            //this.Add(browser);
-            //browser.Dock = DockStyle.Fill;
-
-            //ChromiumWebBrowser chromeBrowser = new ChromiumWebBrowser("https://digma.ai/");
-            //// Add it to the form and fill it to the form window.
-            //this.WrapPanel1.Children.Add(chromeBrowser);
-            //chromeBrowser.Dock = DockStyle.Fill;
+            ThreadHelper.JoinableTaskFactory.Run(async delegate {
+                InitializeWebViewAsync();
+            });
+        }
 
 
+        private async void InitializeWebViewAsync()
+        {
+            webView = new WebView2
+            {
+                VerticalAlignment = System.Windows.VerticalAlignment.Stretch,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch
+            };
+
+            await webView.EnsureCoreWebView2Async(null);
+            //task.Wait(System.TimeSpan.FromSeconds(10));
+
+            //webView.NavigationStarting += EnsureHttps;
+            //webView.NavigationCompleted += NavigationCompleted;
+
+            //webView.CoreWebView2.WebResourceRequested += WebResourceRequested;
+            //webView.CoreWebView2.AddWebResourceRequestedFilter("https*",
+            //    CoreWebView2WebResourceContext.All, CoreWebView2WebResourceRequestSourceKinds.All);
+
+            webView.Source = new Uri("https://www.google.com");
         }
 
         /// <summary>
@@ -58,14 +62,10 @@ namespace FirstToolWindow
         }
 
 
-        public System.Windows.Controls.MediaElement MediaPlayer
-        {
-            get { return mediaElement1; }
-        }
-
-        //public StackPanel StackPanel1
+        //public System.Windows.Controls.MediaElement MediaPlayer
         //{
-        //    get { return stackPanel1; }
+        //    get { return mediaElement1; }
         //}
+
     }
 }
