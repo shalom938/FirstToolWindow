@@ -77,11 +77,12 @@ namespace FirstToolWindow
             myWebView.NavigationCompleted += NavigationCompleted;
 
 
-            //myWebView.CoreWebView2.WebResourceRequested += WebResourceRequested;
-            //myWebView.CoreWebView2.AddWebResourceRequestedFilter("http*",
-            //    CoreWebView2WebResourceContext.All, CoreWebView2WebResourceRequestSourceKinds.All);
+            myWebView.CoreWebView2.WebResourceRequested += WebResourceRequested;
+            myWebView.CoreWebView2.AddWebResourceRequestedFilter("http*",
+                CoreWebView2WebResourceContext.All, CoreWebView2WebResourceRequestSourceKinds.All);
 
-            myWebView.Source = new Uri("https://www.google.com");
+            //myWebView.Source = new Uri("https://www.google.com");
+            myWebView.Source = new Uri("https://localhost/index.html");
             
         }
 
@@ -89,16 +90,16 @@ namespace FirstToolWindow
         private void WebResourceRequested(object sender, CoreWebView2WebResourceRequestedEventArgs e)
         {
 
-            //if (e.Request.Uri.EndsWith("index.html"))
-            //{
+            if (e.Request.Uri.EndsWith("index.html"))
+            {
 
-            //    e.Response = myWebView.CoreWebView2.Environment.CreateWebResourceResponse(
-            //        getIndex(),
-            //        (int)200,
-            //        "OK",   // HTTP status message
-            //        "Content-Type: text/html; charset=utf-8" // Headers
-            //    );
-            //}
+                e.Response = myWebView.CoreWebView2.Environment.CreateWebResourceResponse(
+                    getIndex(),
+                    (int)200,
+                    "OK",   // HTTP status message
+                    "Content-Type: text/html; charset=utf-8" // Headers
+                );
+            }
 
         }
 
