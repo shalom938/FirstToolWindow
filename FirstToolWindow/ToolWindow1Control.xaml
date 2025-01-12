@@ -12,8 +12,24 @@
              d:DesignHeight="300" d:DesignWidth="300"
              Name="MyToolWindow">
     <Grid>
-        <wpf:ChromiumWebBrowser Name="Browser" Address="https://digma.ai/" />
         
+
+        <StackPanel Orientation="Vertical" Margin="5,-70,-5,70">
+            <TextBlock Margin="10" HorizontalAlignment="Center">my ToolWindow 1</TextBlock>
+            <MediaElement x:Name="mediaElement1" Height="100" Width="100"/>
+            <Label Content="Label 1" HorizontalAlignment="Left" Margin="39,251,0,0" VerticalAlignment="Top"/>
+            
+            <!--wpf:ChromiumWebBrowser x:Name="Browser"
+                Address="https://www.google.com">
+        <behaviors:interaction.behaviors>
+            <behaviours:hoverlinkbehaviour x:name="hoverlinkbehaviour"/>
+        </behaviors:interaction.behaviors>>
+    </wpf:ChromiumWebBrowser -->
+            
+
+        </StackPanel>
+
+        <wpf:ChromiumWebBrowser Name="Browser" Address="https://www.google.com" />
         <!--Label Content="Label 4" HorizontalAlignment="Left" Margin="39,251,0,0" VerticalAlignment="Top"/-->
     </Grid>
 </UserControl>

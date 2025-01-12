@@ -28,7 +28,7 @@ namespace FirstToolWindow
             //}
 
             //// Set the initial URL
-            //Browser.Address = "https://www.google.com";
+            Browser.Address = "https://digma.ai/";
 
             //var browser = new ChromiumWebBrowser();
             //browser.LoadUrl("https://google.com");
@@ -58,10 +58,10 @@ namespace FirstToolWindow
         }
 
 
-        //public System.Windows.Controls.MediaElement MediaPlayer
-        //{
-        //    get { return mediaElement1; }
-        //}
+        public System.Windows.Controls.MediaElement MediaPlayer
+        {
+            get { return mediaElement1; }
+        }
 
         //public StackPanel StackPanel1
         //{
