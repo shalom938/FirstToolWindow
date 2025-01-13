@@ -77,15 +77,27 @@ namespace FirstToolWindow
             myWebView.NavigationCompleted += NavigationCompleted;
 
 
+
+            myWebView.CoreWebView2.WebMessageReceived += ProcessWebMessage;
+
             myWebView.CoreWebView2.WebResourceRequested += WebResourceRequested;
             myWebView.CoreWebView2.AddWebResourceRequestedFilter("http*",
                 CoreWebView2WebResourceContext.All, CoreWebView2WebResourceRequestSourceKinds.All);
 
-            //myWebView.Source = new Uri("https://www.google.com");
-            myWebView.Source = new Uri("https://localhost/index.html");
+            myWebView.Source = new Uri("https://www.google.com");
+            myWebView.Source = new Uri("https://main/index.html");
             
         }
 
+
+
+        void ProcessWebMessage(object sender, CoreWebView2WebMessageReceivedEventArgs args)
+        {
+            String messageFromWebView = args.TryGetWebMessageAsString();
+            Console.Out.WriteLine("Got message from react: "+messageFromWebView);
+            myWebView.CoreWebView2.PostWebMessageAsString("Got message from react : " + messageFromWebView);
+            //webView.CoreWebView2.PostWebMessageAsJson("{\"myuri\": \"My uri "+messageFromWebView+"\"}");
+        }
 
         private void WebResourceRequested(object sender, CoreWebView2WebResourceRequestedEventArgs e)
         {
@@ -105,7 +117,9 @@ namespace FirstToolWindow
 
         private Stream getIndex()
         {
-            string index = "                <!DOCTYPE html>\r\n<html>\r\n<head>\r\n  <title>Hello World React App</title>\r\n</head>\r\n<body>\r\n  <div id=\"root\"></div>\r\n  <!-- Include React -->\r\n  <script src=\"https://unpkg.com/react@18/umd/react.development.js\" crossorigin></script>\r\n  <script src=\"https://unpkg.com/react-dom@18/umd/react-dom.development.js\" crossorigin></script>\r\n  <!-- Include Babel Standalone -->\r\n  <script src=\"https://unpkg.com/babel-standalone@6/babel.min.js\"></script>\r\n  <!-- Your React Code -->\r\n  <script type=\"text/babel\">\r\n    function HelloWorld() {\r\n      return <h1>Hello World from react fun!</h1>;\r\n    }\r\n\r\n    ReactDOM.render(<HelloWorld />, document.getElementById('root'));\r\n  </script>\r\n</body>\r\n</html>";
+            var index = File.ReadAllText("D:\\workspace\\digma\\embedded-react-samples-1.html");
+            //string index = "<html>\r\n<head>\r\n  <title>Hello World React App</title>\r\n</head>\r\n<body>\r\n  <div id=\"root\"></div>\r\n  <!-- Include React -->\r\n  <script src=\"https://unpkg.com/react@18/umd/react.development.js\" crossorigin></script>\r\n  <script src=\"https://unpkg.com/react-dom@18/umd/react-dom.development.js\" crossorigin></script>\r\n  <!-- Include Babel Standalone -->\r\n  <script src=\"https://unpkg.com/babel-standalone@6/babel.min.js\"></script>\r\n  <!-- Your React Code -->\r\n  <script type=\"text/babel\">\r\n    function HelloWorld() {\r\n      return <h1>Hello World from react fun!</h1>;\r\n    }\r\n\r\n    ReactDOM.render(<HelloWorld />, document.getElementById('root'));\r\n\r\n<div>\r\n      <h1>React App</h1>\r\n      <button onClick={sendMessageToWinForms}>Send Message to Wpf</button>\r\n    </div>\r\n\r\n  </script>\r\n</body>\r\n</html>";
+            //string index = "                <!DOCTYPE html>\r\n<html>\r\n<head>\r\n  <title>Hello World React App</title>\r\n</head>\r\n<body>\r\n  <div id=\"root\"></div>\r\n  <!-- Include React -->\r\n  <script src=\"https://unpkg.com/react@18/umd/react.development.js\" crossorigin></script>\r\n  <script src=\"https://unpkg.com/react-dom@18/umd/react-dom.development.js\" crossorigin></script>\r\n  <!-- Include Babel Standalone -->\r\n  <script src=\"https://unpkg.com/babel-standalone@6/babel.min.js\"></script>\r\n  <!-- Your React Code -->\r\n  <script type=\"text/babel\">\r\n    function HelloWorld() {\r\n      return <h1>Hello World from react fun!</h1>;\r\n    }\r\n\r\n    ReactDOM.render(<HelloWorld />, document.getElementById('root'));\r\n  </script>\r\n</body>\r\n</html>";
             //string index = "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n  <title>Hello World React App</title>\r\n</head>\r\n</html>";
             //string index = "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n  <title>Hello World React App</title>\r\n</head>\r\n<body>\r\n                        <h1>Hello, World!</h1>\r\n                        <p>This is a custom HTML response served from WebView2.</p>\r\n                    </body>\r\n</html>";
 
