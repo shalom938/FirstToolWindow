@@ -111,14 +111,23 @@ namespace FirstToolWindow
             IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
             Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
 
+
             // Create the handles for the toolbar command.
-            var mcsTask = this.ServiceProvider.GetServiceAsync(typeof(IMenuCommandService));
-            var mcs = mcsTask.Result as MenuCommandService;
-            var toolbarbtnCmdID = new CommandID(new Guid(ToolWindow1Command.guidFirstToolWindowPackageCmdSet),
-                ToolWindow1Command.cmdidWindowsMediaOpen);
-            var menuItem = new MenuCommand(new EventHandler(
-                ButtonHandler), toolbarbtnCmdID);
-            mcs.AddCommand(menuItem);
+            //catch exception when opening the tool window second time, just for this sample
+            try
+            {
+                var mcsTask = this.ServiceProvider.GetServiceAsync(typeof(IMenuCommandService));
+                var mcs = mcsTask.Result as MenuCommandService;
+                var toolbarbtnCmdID = new CommandID(new Guid(ToolWindow1Command.guidFirstToolWindowPackageCmdSet),
+                    ToolWindow1Command.cmdidWindowsMediaOpen);
+                var menuItem = new MenuCommand(new EventHandler(
+                    ButtonHandler), toolbarbtnCmdID);
+                mcs.AddCommand(menuItem);
+            }
+            catch (Exception ex) { 
+                Console.Error.WriteLine(ex.ToString());
+            }
+            
         }
 
 

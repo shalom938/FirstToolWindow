@@ -11,6 +11,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
+using Community.VisualStudio.Toolkit;
 
 namespace FirstToolWindow
 {
@@ -84,7 +85,7 @@ namespace FirstToolWindow
             myWebView.CoreWebView2.AddWebResourceRequestedFilter("http*",
                 CoreWebView2WebResourceContext.All, CoreWebView2WebResourceRequestSourceKinds.All);
 
-            myWebView.Source = new Uri("https://www.google.com");
+            //myWebView.Source = new Uri("https://www.google.com");
             myWebView.Source = new Uri("https://main/index.html");
             
         }
@@ -96,13 +97,15 @@ namespace FirstToolWindow
             String messageFromWebView = args.TryGetWebMessageAsString();
             Console.Out.WriteLine("Got message from react: "+messageFromWebView);
             myWebView.CoreWebView2.PostWebMessageAsString("Got message from react : " + messageFromWebView);
-            //webView.CoreWebView2.PostWebMessageAsJson("{\"myuri\": \"My uri "+messageFromWebView+"\"}");
+            //webView.CoreWebView2.PostWebMessageAsJson("{\"message\": \"Got message from react "+messageFromWebView+"\"}");
+            VS.StatusBar.ShowMessageAsync("digma ProcessWebMessage "+ messageFromWebView).FireAndForget();
         }
 
         private void WebResourceRequested(object sender, CoreWebView2WebResourceRequestedEventArgs e)
         {
+            VS.StatusBar.ShowMessageAsync("digma WebResourceRequested "+ e.Request.Uri).FireAndForget();
 
-            if (e.Request.Uri.EndsWith("index.html"))
+            if (e.Request.Uri.EndsWith("main/index.html"))
             {
 
                 e.Response = myWebView.CoreWebView2.Environment.CreateWebResourceResponse(
