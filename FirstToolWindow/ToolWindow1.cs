@@ -12,7 +12,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using Community.VisualStudio.Toolkit;
-using Microsoft.Web.WebView2.WinForms;
 using System.Net.Http;
 
 namespace FirstToolWindow
