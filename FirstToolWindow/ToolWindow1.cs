@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using Community.VisualStudio.Toolkit;
+using Microsoft.Web.WebView2.WinForms;
+using System.Net.Http;
 
 namespace FirstToolWindow
 {
@@ -117,6 +119,45 @@ namespace FirstToolWindow
             }
 
         }
+
+        //proxy example
+        //private void WebResourceRequested(object sender, CoreWebView2WebResourceRequestedEventArgs e)
+        //{
+
+        //    if (e.Request.Uri.Contains("digma"))
+        //    {
+        //        return;
+        //    }
+
+        //    var request = e.Request;
+
+        //    using (var httpClient = new HttpClient())
+        //    {
+        //        var proxyRequest = new HttpRequestMessage(new HttpMethod(request.Method), "https://digma.ai");
+        //        var responseTask = httpClient.SendAsync(proxyRequest);
+
+        //        responseTask.Wait();
+        //        var response = responseTask.Result;
+
+        //        // Create a new response for WebView2
+        //        var responseStreamTask = response.Content.ReadAsStreamAsync();
+        //        responseStreamTask.Wait();
+        //        var responseStream = responseStreamTask.Result;
+        //        //var deferral = e.GetDeferral();
+        //        e.Response = webView.CoreWebView2.Environment.CreateWebResourceResponse(
+        //            responseStream,
+        //            (int)response.StatusCode,
+        //            response.ReasonPhrase,
+        //            string.Join("\n", response.Headers)
+        //        );
+
+        //        //deferral.Complete();
+        //    }
+        //}
+
+
+
+
 
         private Stream getIndex()
         {
