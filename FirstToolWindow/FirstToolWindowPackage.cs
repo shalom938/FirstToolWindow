@@ -3,6 +3,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Task = System.Threading.Tasks.Task;
+using System.ComponentModel;
 
 namespace FirstToolWindow
 {
@@ -27,12 +28,25 @@ namespace FirstToolWindow
     [Guid(FirstToolWindowPackage.PackageGuidString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideToolWindow(typeof(ToolWindow1), Style = Microsoft.VisualStudio.Shell.VsDockStyle.Tabbed,Window = "3ae79031-e1bc-11d0-8f78-00a0c9110057")]
+    [ProvideOptionPage(typeof(OptionPageGrid),"Digma Category", "Digma Page", 0, 0, true)]
+    //OptionPageCustom doesn't work yet
+    //[ProvideOptionPage(typeof(OptionPageCustom), "Digma Custom Category", "Digma Custom Page", 0, 0, true)]
+
     public sealed class FirstToolWindowPackage : AsyncPackage
     {
         /// <summary>
         /// FirstToolWindowPackage GUID string.
         /// </summary>
         public const string PackageGuidString = "62113088-801a-46dc-86da-c40e7f6c5deb";
+
+        public int OptionInteger
+        {
+            get
+            {
+                OptionPageGrid page = (OptionPageGrid)GetDialogPage(typeof(OptionPageGrid));
+                return page.OptionInteger;
+            }
+        }
 
         #region Package Members
 
@@ -51,10 +65,15 @@ namespace FirstToolWindow
             await ToolWindow1Command.InitializeAsync(this);
 
             base.InitializeAsync(cancellationToken, progress);
+            await MyToolsOptionsCommand.InitializeAsync(this);
+            await OpenPageCommand.InitializeAsync(this);
         }
 
         #endregion
 
        
     }
+
+
+    
 }

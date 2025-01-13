@@ -55,6 +55,8 @@ namespace FirstToolWindow
 
 
 
+            IPersistXMLFragment persistXMLFragment = null;
+
 
             myWebView = new WebView2
             {
