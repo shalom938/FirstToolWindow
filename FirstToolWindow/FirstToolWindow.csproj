@@ -47,6 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="FindServicesCommand.cs" />
+    <Compile Include="MyService.cs" />
+    <Compile Include="SettingsStoreCommand.cs" />
     <Compile Include="MyToolsOptionsCommand.cs" />
     <Compile Include="OpenPageCommand.cs" />
     <Compile Include="Options.cs">
@@ -108,6 +111,8 @@
     <VSCTCompile Include="FirstToolWindowPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
+    <Content Include="Resources\FindServicesCommand.png" />
+    <Content Include="Resources\SettingsStoreCommand.png" />
     <Content Include="Resources\MyToolsOptionsCommand.png" />
     <Content Include="Resources\OpenPageCommand.png" />
     <Content Include="Resources\ToolWindow1Command.png" />

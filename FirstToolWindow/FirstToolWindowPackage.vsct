@@ -94,6 +94,20 @@
           <ButtonText>Invoke OpenPageCommand</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidFirstToolWindowPackageCmdSet1" id="cmdidSettingsStoreCommand" priority="0x0100" type="Button">
+        <Parent guid="guidFirstToolWindowPackageCmdSet1" id="MyMenuGroup" />
+        <Icon guid="guidImages3" id="bmpPic1" />
+        <Strings>
+          <ButtonText>Invoke SettingsStoreCommand</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidFirstToolWindowPackageCmdSet1" id="cmdidFindServicesCommand" priority="0x0100" type="Button">
+        <Parent guid="guidFirstToolWindowPackageCmdSet1" id="MyMenuGroup" />
+        <Icon guid="guidImages4" id="bmpPic1" />
+        <Strings>
+          <ButtonText>Invoke FindServicesCommand</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
 
     <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
@@ -106,6 +120,8 @@
       <Bitmap guid="guidImages" href="Resources\ToolWindow1Command.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
       <Bitmap guid="guidImages1" href="Resources\MyToolsOptionsCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
       <Bitmap guid="guidImages2" href="Resources\OpenPageCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
+      <Bitmap guid="guidImages3" href="Resources\SettingsStoreCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
+      <Bitmap guid="guidImages4" href="Resources\FindServicesCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
     </Bitmaps>
   </Commands>
 
@@ -135,6 +151,8 @@
       <IDSymbol value="4128" name="MyMenuGroup" />
       <IDSymbol value="256" name="cmdidMyToolsOptionsCommand" />
       <IDSymbol value="4129" name="cmdidOpenPageCommand" />
+      <IDSymbol value="4130" name="cmdidSettingsStoreCommand" />
+      <IDSymbol value="4131" name="cmdidFindServicesCommand" />
     </GuidSymbol>
   
     <GuidSymbol value="{41b374e1-5ae1-499e-8cca-7aee338e2a0d}" name="guidImages1">
@@ -147,6 +165,24 @@
     </GuidSymbol>
   
     <GuidSymbol value="{5e648ae3-684f-4f5c-a28a-a20debc63ef4}" name="guidImages2">
+      <IDSymbol name="bmpPic1" value="1" />
+      <IDSymbol name="bmpPic2" value="2" />
+      <IDSymbol name="bmpPicSearch" value="3" />
+      <IDSymbol name="bmpPicX" value="4" />
+      <IDSymbol name="bmpPicArrows" value="5" />
+      <IDSymbol name="bmpPicStrikethrough" value="6" />
+    </GuidSymbol>
+  
+    <GuidSymbol value="{bad1ab1c-541d-4586-b287-abdb65ff4948}" name="guidImages3">
+      <IDSymbol name="bmpPic1" value="1" />
+      <IDSymbol name="bmpPic2" value="2" />
+      <IDSymbol name="bmpPicSearch" value="3" />
+      <IDSymbol name="bmpPicX" value="4" />
+      <IDSymbol name="bmpPicArrows" value="5" />
+      <IDSymbol name="bmpPicStrikethrough" value="6" />
+    </GuidSymbol>
+  
+    <GuidSymbol value="{9b56fa7a-3de8-4fb7-9c58-8445e8989eda}" name="guidImages4">
       <IDSymbol name="bmpPic1" value="1" />
       <IDSymbol name="bmpPic2" value="2" />
       <IDSymbol name="bmpPicSearch" value="3" />

@@ -1,23 +1,27 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Settings;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Shell.Settings;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
+using System.Windows.Forms;
 
 namespace FirstToolWindow
 {
     /// <summary>
     /// Command handler
     /// </summary>
-    internal sealed class OpenPageCommand
+    internal sealed class FindServicesCommand
     {
         /// <summary>
         /// Command ID.
         /// </summary>
-        public const int CommandId = 4129;
+        public const int CommandId = 4131;
 
         /// <summary>
         /// Command menu group (command set GUID).
@@ -30,12 +34,12 @@ namespace FirstToolWindow
         private readonly AsyncPackage package;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OpenPageCommand"/> class.
+        /// Initializes a new instance of the <see cref="FindServicesCommand"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
         /// <param name="commandService">Command service to add command to, not null.</param>
-        private OpenPageCommand(AsyncPackage package, OleMenuCommandService commandService)
+        private FindServicesCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -48,7 +52,7 @@ namespace FirstToolWindow
         /// <summary>
         /// Gets the instance of the command.
         /// </summary>
-        public static OpenPageCommand Instance
+        public static FindServicesCommand Instance
         {
             get;
             private set;
@@ -71,12 +75,12 @@ namespace FirstToolWindow
         /// <param name="package">Owner package, not null.</param>
         public static async Task InitializeAsync(AsyncPackage package)
         {
-            // Switch to the main thread - the call to AddCommand in OpenPageCommand's constructor requires
+            // Switch to the main thread - the call to AddCommand in FindServicesCommand's constructor requires
             // the UI thread.
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new OpenPageCommand(package, commandService);
+            Instance = new FindServicesCommand(package, commandService);
         }
 
         /// <summary>
@@ -86,11 +90,36 @@ namespace FirstToolWindow
         /// </summary>
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event args.</param>
+        //private void Execute(object sender, EventArgs e)
+        //{
+        //    SettingsManager settingsManager = new ShellSettingsManager((IServiceProvider)ServiceProvider);
+        //    SettingsStore configurationSettingsStore = settingsManager.GetReadOnlySettingsStore(SettingsScope.Configuration);
+        //    string message = "Available services:\n";
+        //    IEnumerable<string> collection = configurationSettingsStore.GetSubCollectionNames("Services");
+        //    int n = 0;
+        //    foreach (string service in collection)
+        //    {
+        //        message += configurationSettingsStore.GetString("Services\\" + service, "Name", "Unknown") + "\n";
+        //    }
+
+        //    MessageBox.Show(message);
+        //}
+
         private void Execute(object sender, EventArgs e)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-            Type optionsPageType = typeof(OptionPageGrid);
-            Instance.package.ShowOptionPage(optionsPageType);
+            SettingsManager settingsManager = new ShellSettingsManager((IServiceProvider)ServiceProvider);
+            SettingsStore configurationSettingsStore = settingsManager.GetReadOnlySettingsStore(SettingsScope.Configuration);
+            string helpServiceGUID = typeof(SVsHelpService).GUID.ToString("B").ToUpper();
+            bool hasHelpService = configurationSettingsStore.CollectionExists("Services\\" + helpServiceGUID);
+            string message = "Help Service Available: " + hasHelpService;
+
+            var myServiceTask = ServiceProvider.GetServiceAsync(typeof(MyService));
+            myServiceTask.Wait(TimeSpan.FromSeconds(10));
+            MyService myService = (MyService)myServiceTask.Result;
+
+            message += " and MyService is ok? " + myService.IsOK();
+
+            MessageBox.Show(message);
         }
     }
 }

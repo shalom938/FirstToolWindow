@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using Task = System.Threading.Tasks.Task;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace FirstToolWindow
 {
@@ -27,10 +28,11 @@ namespace FirstToolWindow
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Guid(FirstToolWindowPackage.PackageGuidString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [ProvideToolWindow(typeof(ToolWindow1), Style = Microsoft.VisualStudio.Shell.VsDockStyle.Tabbed,Window = "3ae79031-e1bc-11d0-8f78-00a0c9110057")]
-    [ProvideOptionPage(typeof(OptionPageGrid),"Digma Category", "Digma Page", 0, 0, true)]
+    [ProvideToolWindow(typeof(ToolWindow1), Style = Microsoft.VisualStudio.Shell.VsDockStyle.Tabbed, Window = "3ae79031-e1bc-11d0-8f78-00a0c9110057")]
+    [ProvideOptionPage(typeof(OptionPageGrid), "Digma Category", "Digma Page", 0, 0, true)]
     //OptionPageCustom doesn't work yet
     //[ProvideOptionPage(typeof(OptionPageCustom), "Digma Custom Category", "Digma Custom Page", 0, 0, true)]
+    [ProvideService(typeof(MyService), IsAsyncQueryable = true)]
 
     public sealed class FirstToolWindowPackage : AsyncPackage
     {
@@ -59,6 +61,8 @@ namespace FirstToolWindow
         /// <returns>A task representing the async work of package initialization, or an already completed task if there is none. Do not return null from this method.</returns>
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
+
+            this.AddService(typeof(MyService), CreateMyServiceAsync, true);
             // When initialized asynchronously, the current thread may be a background thread at this point.
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
@@ -67,11 +71,20 @@ namespace FirstToolWindow
             base.InitializeAsync(cancellationToken, progress);
             await MyToolsOptionsCommand.InitializeAsync(this);
             await OpenPageCommand.InitializeAsync(this);
+            await SettingsStoreCommand.InitializeAsync(this);
+            await FindServicesCommand.InitializeAsync(this);
+            await Task.FromResult<object>(null);
+        }
+
+        private Task<object> CreateMyServiceAsync(IAsyncServiceContainer container, CancellationToken token, Type serviceType)
+        {
+            // Create and return the service instance
+            return Task.FromResult<object>(new MyService());
         }
 
         #endregion
 
-       
+
     }
 
 
